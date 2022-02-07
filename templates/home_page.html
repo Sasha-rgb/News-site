@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body_block %}
+<div style="display:flex;justify-content: space-around;">
+          <div class="news-bar">
+              {% if banner %}
+              <div>
+                <div class="slick_slider">
+                    {% for new in banner %}
+                          <div class="single_iteam"> <a href="/category/{{new.category}}/{{new.slug}}"> <img src="{{ new.image.url }}" alt=""></a>
+                            <div class="slider_article">
+                              <h2><a class="slider_tittle" href="/category/{{new.category}}/{{new.slug}}">{{ new.title }}</a></h2>
+                              <a href="/category/{{new.category}}/{{new.slug}}"><text class="title_home_page_slider">{{ new.news_text }}</a></text>
+                            </div>
+                          </div>
+                    {% endfor %}
+
+                </div>
+                <br>
+
+                <div class="news_home_page_content">
+<!--                  {% for one_category in category %}-->
+<!--                        <div class="block_category_five">-->
+<!--                            <h2>{{one_category.name}}</h2>-->
+<!--                            <hr>-->
+
+<!--                        </div>-->
+
+<!--                  {% endfor %}-->
+                    {{category0.name}}
+                </div>
+
+              {% else %}
+                Something gets wrong!
+              {% endif %}
+              </div>
+
+          </div>
+
+    <!--Right part -->
+          <div class="row-md1" style="min-width:250px;">
+              <div class="popular-news" style="margin-left:-20px;">
+                  <div class="latest_post" >
+                    <h2><span>Video</span></h2>
+                  </div>
+              </div>
+              <div class="video">
+                    <div class="vide_area">
+                        <iframe width="100%" height="100%" src="{{ live_video.link }}" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen></iframe>
+                    </div>
+              </div>
+              <div class="popular-news" style="margin-left:-20px;">
+                  <div class="latest_post">
+                    <h2><span>Top News</span></h2>
+                  </div>
+                  <div class="top_news">
+                      {% if top_news %}
+                        {% for news in top_news %}
+                        <div class="top_news_box">
+                            <div>
+                                <h5 ><img class="top_news_image" src="{{news.image.url}}"> </h5>
+                            </div>
+                            <div class="top_news_titles">
+                                <b class="top_news_titles_bold">{{news.title}}</b>
+                                <a class="top_news_read_more" href="/category/{{news.category}}/{{news.slug}}"> Read more.</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                      {% else %}
+                      <h4>⚠ Something gets wrong!Please refresh page.</h4>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+</div>
+
+{% endblock %}

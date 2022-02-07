@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body_block %}
+<div style="display:flex;justify-content: space-around;">
+          <div class="contact" style="padding-right:50px;padding-left:10px;">
+              <div class="contact-bar">
+                <h2>Have any questions or inquiries?</h2>
+                  <br>
+                <p>Email us with any questions or inquiries.We would be happy to answer your questions.It usually takes a maximum of 1 day․But sometimes for technical reasons your message will not be sent if you have not received the answer to your question within 1 week please resend it․Your suggestions or questions are very important to us․</p>
+                {% if ErrorForm %}
+                  <div class='form_error'><p><b>{{ ErrorForm }}</b></p></div>
+                {% endif %}
+                <form action="#" class="contact_form" method="POST">
+                    {% csrf_token %}
+                  <input name="name" class="form-control" type="text" placeholder="Name*">
+                  <input name="email" class="form-control" type="email" placeholder="Email (we will send answer to your mail)*">
+                  <textarea name="message" class="form-control" cols="30" rows="10" placeholder="Message*"></textarea>
+                  <input type="submit" value="Send Message">
+                </form>
+              </div>
+          </div>
+    <!--Right part -->
+                    <div class="row-md1" style="min-width:250px;">
+              <div class="popular-news" style="margin-left:-20px;">
+                  <div class="latest_post" >
+                    <h2><span>Video</span></h2>
+                  </div>
+              </div>
+              <div class="video">
+                    <div class="vide_area">
+                        <iframe width="100%" height="100%" src="{{ live_video.link }}" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen></iframe>
+                    </div>
+              </div>
+              <div class="popular-news" style="margin-left:-20px;">
+                  <div class="latest_post">
+                    <h2><span>Top News</span></h2>
+                  </div>
+                  <div class="top_news">
+                      {% if top_news %}
+                        {% for news in top_news %}
+                        <div class="top_news_box">
+                            <div>
+                                <h5 ><img class="top_news_image" src="{{news.image.url}}"> </h5>
+                            </div>
+                            <div class="top_news_titles">
+                                <b class="top_news_titles_bold">{{news.title}}</b>
+                                <a class="top_news_read_more" href="/category/{{news.category}}/{{news.slug}}"> Read more.</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                      {% else %}
+                      <h4>⚠ Something gets wrong!Please refresh page.</h4>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+</div>
+
+{% endblock %}

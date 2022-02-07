@@ -1,0 +1,99 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body_block %}
+
+<style>
+*{
+  box-sizing: border-box;
+}
+.additional_li{
+padding:5px;
+float: left;
+height:
+width:33.3%;
+}
+
+/* Clear floats after the columns */
+.rows:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+<div style="display:flex;justify-content: space-around;">
+          <div class="news-bar">
+
+              <ol class="breadcrumb">
+              <li><a href="{% url 'home'%}">Home</a></li>
+              {% if category %}
+                    <li><a href="#">{{this_category.name}}</a></li>
+              {% endif %}
+            </ol>
+
+               {% if category %}
+               <h1>{{ this_category.name }}</h1>
+                    {% if news %}
+                        <ul class="rows">
+                        {% for new in news %}
+                            <li class="additional_li"><a href="{{new.slug}}">
+                                <div class="each_news_box">
+                                    <div class="each_news_info">
+                                        <img class="image_in_page_news" src="{{ new.image.url}}"><br>
+                                        <div class="title_page">
+                                            <a href="{{ new.slug }}" class="titles_in_page"><b>{{ new.title }}</b></a>
+                                        </div>
+                                    </div>
+                                    <text class="tegs">Tags:{{new.tegs}}</text><br>
+                                    <text class="like_unlike">Likes:{{new.like}} | Unlikes{{ new.unlike }}</text>
+                                </div>
+                            </a>
+
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        <strong>No pages currently in category.</strong>
+                    {% endif %}
+                {% else %}
+                    The specified category does not exist!
+                {% endif %}
+          </div>
+
+    <!--Right part -->
+          <div class="row-md1" style="min-width:250px;">
+              <div class="popular-news" style="margin-left:-20px;">
+                  <div class="latest_post" >
+                    <h2><span>Video</span></h2>
+                  </div>
+              </div>
+              <div class="video">
+                    <div class="vide_area">
+                        <iframe width="100%" height="100%" src="{{ live_video.link }}" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen></iframe>
+                    </div>
+              </div>
+              <div class="popular-news" style="margin-left:-20px;">
+                  <div class="latest_post">
+                    <h2><span>Top News</span></h2>
+                  </div>
+                  <div class="top_news">
+                      {% if top_news %}
+                        {% for news in top_news %}
+                        <div class="top_news_box">
+                            <div>
+                                <h5 ><img class="top_news_image" src="{{news.image.url}}"> </h5>
+                            </div>
+                            <div class="top_news_titles">
+                                <b class="top_news_titles_bold">{{news.title}}</b>
+                                <a class="top_news_read_more" href="/category/{{news.category}}/{{news.slug}}"> Read more.</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                      {% else %}
+                      <h4>⚠ Something gets wrong!Please refresh page.</h4>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+</div>
+
+{% endblock %}

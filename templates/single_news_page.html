@@ -1,0 +1,99 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body_block %}
+<div style="display:flex;justify-content: space-around;" xmlns="http://www.w3.org/1999/html">
+          <div class="news-bar">
+                <div>
+                    <div class="left_content">
+                      <div class="single_page">
+                        <ol class="breadcrumb">
+                          <li><a href="{% url 'home'%}">Home</a></li>
+                          {% if category %}
+                                <li><a href="/category/{{this_category.slug}}">{{this_category.name}}</a></li>
+                          {% endif %}
+                        </ol>
+                        <h1>{{ single_new.title }}</h1>
+                        <div class="post_commentbox"> <a href="#"><i class="fa fa-user"></i>{{ single_new.autor }}</a> <span><i class="fa fa-calendar"></i>{{post_time}} PM</span> <a href="#"><i class="fa fa-tags"></i>{{ single_new.tegs }}</a> </div>
+                        <div class="single_page_content"> <img class="img-center" src="{{ single_new.image.url }}" alt="">
+                            <text>{{ single_new.news_text }}</text></br>
+                            {% if single_new.video_from_youtube %}
+                                <div style="height:500px;">
+                                    <iframe  style="width:99%;height:100%;" src="{{ single_new.video_from_youtube }}"  allow="encrypted-media;" frameborder="0" allowfullscreen></iframe>
+                                </div></br>
+                            {% endif %}
+
+
+                        </div></br>
+                          <button class="btn btn-green">Like! 👍</button>
+                          <button class="btn btn-red">Unlike! 👎</button>
+                        <div class="social_link">
+                            Share to ...
+                          <ul class="sociallink_nav">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                          </ul>
+                        </div>
+                        <div class="related_post">
+                          <h2>Related Post <i class="fa fa-thumbs-o-up"></i></h2>
+                          <ul class="spost_nav wow fadeInDown animated">
+                              {% if related_posts %}
+                                    {% for post in related_posts %}
+                                        <li>
+                                          <div class="media"> <a class="media-left" href="/category/{{post.category}}/{{post.slug}}"> <img src="{{post.image.url}}" alt="Bad internet conection!"> </a>
+                                            <div class="media-body"> <a class="catg_title" href="/category/{{post.category}}/{{post.slug}}"> {{ post.title }}</a></br>
+                                            <text class="tegs">Tags:{{post.tegs}}</text><br>
+                                            <text class="like_unlike">Likes:{{post.like}} | Unlikes{{ post.unlike }}</text>
+
+                                            </div>
+                                          </div>
+                                        </li>
+                                    {% endfor %}
+                              {% else %}
+                              <li><a class="catg_title" href="#"> There is no related news.</a></li>
+                              {% endif %}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+          </div>
+
+    <!--Right part -->
+          <div class="row-md1" style="min-width:250px;">
+              <div class="popular-news" style="margin-left:-20px;">
+                  <div class="latest_post" >
+                    <h2><span>Video</span></h2>
+                  </div>
+              </div>
+              <div class="video">
+                    <div class="vide_area">
+                        <iframe width="100%" height="100%" src="{{ live_video.link }}" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen></iframe>
+                    </div>
+              </div>
+              <div class="popular-news" style="margin-left:-20px;">
+                  <div class="latest_post">
+                    <h2><span>Top News</span></h2>
+                  </div>
+                  <div class="top_news">
+                      {% if top_news %}
+                        {% for news in top_news %}
+                        <div class="top_news_box">
+                            <div>
+                                <h5 ><img class="top_news_image" src="{{news.image.url}}"> </h5>
+                            </div>
+                            <div class="top_news_titles">
+                                <b class="top_news_titles_bold">{{news.title}}</b>
+                                <a class="top_news_read_more" href="/category/{{news.category}}/{{news.slug}}"> Read more.</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                      {% else %}
+                      <h4>⚠ Something gets wrong!Please refresh page.</h4>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block body_block %}
+<div style="display:flex;justify-content: space-around;">
+          <div class="about">
+              <h1>About TopNews</h1>
+              <hr style="height:1px; width:100%; border-width:0; color:#ddd; background-color:#ddd">
+              {% if about %}
+              <img src='{{ about.image.url }}' class="img-center" style="width:100%;" alt=""></br>
+              <text>{{ about.about_us }}</text></br>
+              {% else %}
+              <h2>⚠ Something gets wrong!Please refresh page.</h2>
+              {% endif %}
+          </div>
+    <!--Right part -->
+                   <div class="row-md1" style="min-width:250px;">
+              <div class="popular-news" style="margin-left:-20px;">
+                  <div class="latest_post" >
+                    <h2><span>Video</span></h2>
+                  </div>
+              </div>
+              <div class="video">
+                    <div class="vide_area">
+                        <iframe width="100%" height="100%" src="{{ live_video.link }}" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen></iframe>
+                    </div>
+              </div>
+              <div class="popular-news" style="margin-left:-20px;">
+                  <div class="latest_post">
+                    <h2><span>Top News</span></h2>
+                  </div>
+                  <div class="top_news">
+                      {% if top_news %}
+                        {% for news in top_news %}
+                        <div class="top_news_box">
+                            <div>
+                                <h5 ><img class="top_news_image" src="{{news.image.url}}"> </h5>
+                            </div>
+                            <div class="top_news_titles">
+                                <b class="top_news_titles_bold">{{news.title}}</b>
+                                <a class="top_news_read_more" href="/category/{{news.category}}/{{news.slug}}"> Read more.</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                      {% else %}
+                      <h4>⚠ Something gets wrong!Please refresh page.</h4>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+</div>
+
+{% endblock %}
